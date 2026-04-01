@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>にゃんこ大戦争 全キャラチェッカー</title>
+    <style>
+
+    /* --- タイトルのポップなデザイン --- */
+.main-title {
+    margin: 0 0 15px 0;
+    padding: 0;
+    font-size: 28px; /* 文字を大きく */
+    color: #ff9800; /* オレンジ色 */
+    font-family: "Arial Rounded MT Bold", "Helvetica Rounded", sans-serif; /* 丸文字系 */
+    letter-spacing: 2px; /* 文字の間隔を少し広げる */
+
+    /* 白いフチ取りと影でポップにする */
+    text-shadow:
+        3px 3px 0 #fff,
+        -1px -1px 0 #fff,
+         1px -1px 0 #fff,
+        -1px  1px 0 #fff,
+         1px  1px 0 #fff,
+         4px 4px 10px rgba(0,0,0,0.3); /* 外側の柔らかい影 */
+
+    line-height: 1.2;
+}
+
+/* スマホで見るときは少し文字を小さく調整 */
+@media (max-width: 480px) {
+    .main-title {
+        font-size: 22px;
+    }
+}
+
+/* ヘッダー自体の背景も少し可愛く（こげ茶から少し明るい茶色へ） */
+.header {
+    position: sticky;
+    top: 10px;
+    background: #8d6e63; /* 少し明るいブラウン */
+    color: white;
+    padding: 20px 15px;
+    border-radius: 20px;
+    text-align: center;
+    z-index: 1000;
+    margin-bottom: 25px;
+    border: 4px solid #5d4037; /* 濃いフチ */
+    box-shadow: 0 6px 0 #5d4037; /* 下側に厚みを出してボタンっぽく */
+}
+
+    CSS
+    /* --- 全体の設定 --- */
+    :root {
+        --primary-color: #ffb74d; /* 温かみのあるオレンジ */
+        --accent-color: #ffcc80; /* 薄いオレンジ（ホバー用） */
+        --bg-color: #fff8e1; /* クリーム色っぽい優しい白 */
+        --text-color: #5d4037; /* 濃いブラウン（黒より優しい） */
+        --card-bg: #ffffff;
+        --border-color: #e0e0e0;
+    }
+
+    body {
+        font-family: "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ ProN W3", Meiryo, sans-serif;
+        background-color: var(--bg-color);
+        margin: 0;
+        padding: 10px;
+        color: var(--text-color);
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: 20px auto;
+        background: var(--card-bg);
+        padding: 25px;
+        border-radius: 25px; /* 角を大きく丸く */
+        box-shadow: 0 8px 20px rgba(0,0,0,0.05); /* 柔らかい影 */
+        border: 3px solid #ffe0b2; /* 薄いオレンジの枠線 */
+    }
+
+    /* --- ヘッダー・統計エリア --- */
+    .header {
+        position: sticky;
+        top: 10px;
+        background: #5d4037; /* 濃いブラウン */
+        color: white;
+        padding: 15px;
+        border-radius: 15px;
+        text-align: center;
+        z-index: 1000;
+        margin-bottom: 25px;
+        border: 3px solid #3e2723;
+    }
+
+    .stats {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4;
+    }
+
+    .percent {
+        color: #fff176; /* 明るいイエロー */
+        font-size: 1.8rem;
+        font-family: 'Arial Rounded MT Bold', sans-serif; /* 丸文字っぽいフォント */
+        text-shadow: 1px 1px 0 #bf360c; /* 文字の影 */
+    }
+
+    /* --- タブメニュー --- */
+    .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 25px;
+        justify-content: center;
+    }
+
+    .tab-btn {
+        padding: 12px 20px;
+        border: 2px solid #e0e0e0;
+        background: #fff;
+        cursor: pointer;
+        border-radius: 30px; /* 完全に丸いボタン */
+        font-weight: bold;
+        color: #795548;
+        transition: all 0.2s;
+        box-shadow: 0 2px 0 #e0e0e0; /* 少し立体感 */
+    }
+
+    .tab-btn:hover {
+        background: var(--accent-color);
+        border-color: var(--accent-color);
+    }
+
+    .tab-btn.active {
+        background: var(--primary-color);
+        color: white;
+        border-color: #f57c00;
+        box-shadow: 0 2px 0 #e65100;
+        transform: translateY(1px); /* 押した感じ */
+    }
+
+    /* --- キャラクターグリッド --- */
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(85px, 1fr)); /* 少し大きく */
+        gap: 12px;
+        display: none;
+        padding: 10px;
+    }
+
+    .grid.active {
+        display: grid;
+    }
+
+    /* --- キャラカード（かわいい版） --- */
+    .char {
+        width: 85px;
+        height: 110px;
+        border: 2px solid var(--border-color);
+        border-radius: 15px; /* 角丸 */
+        cursor: pointer;
+        transition: all 0.3s ease; /* スムーズな変化 */
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        overflow: hidden;
+        position: relative;
+        filter: grayscale(100%);
+        opacity: 0.4;
+    }
+
+    /* ホバー時に少し大きく、明るく */
+    .char:hover {
+        transform: scale(1.05);
+        opacity: 0.7;
+        border-color: #bcaaa4;
+    }
+
+    /* ✨ 所持している時の見た目（ここが重要！） ✨ */
+    .char.owned {
+        filter: grayscale(0%);
+        opacity: 1;
+        border: 3px solid var(--primary-color);
+        box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3); /* オレンジ色の光 */
+        background: #fffdf9;
+        transform: scale(1);
+    }
+
+    /* 所持した時のアニメーション（ピョコッとなる） */
+    @keyframes popIn {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.15); }
+        100% { transform: scale(1); }
+    }
+    .char.owned {
+        animation: popIn 0.3s ease-out;
+    }
+
+    /* 画像の設定 */
+    .char img {
+        width: 65px;
+        height: 65px;
+        object-fit: contain;
+        margin-top: 8px;
+        flex-shrink: 0;
+    }
+
+    /* キャラ名 */
+    .char-name {
+        font-size: 10px;
+        font-weight: bold;
+        text-align: center;
+        display: block;
+        color: #795548;
+        background: rgba(255, 224, 178, 0.5); /* 薄いオレンジの背景 */
+        width: 100%;
+        padding: 3px 0;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    /* --- リセットボタンエリア --- */
+    .reset-area {
+        text-align: center;
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 2px dashed #ffe0b2; /* 点線 */
+    }
+
+    .btn-red {
+        background: #ef5350;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 30px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 3px 0 #c62828;
+        transition: all 0.2s;
+    }
+
+    .btn-red:hover {
+        background: #e53935;
+    }
+
+    .btn-red:active {
+        box-shadow: 0 1px 0 #c62828;
+        transform: translateY(2px);
+    }
+
+        /* ヘッダー・統計 */
+        .header { position: sticky; top: 0; background: #333; color: white; padding: 15px; border-radius: 10px; text-align: center; z-index: 1000; margin-bottom: 20px; }
+        .stats { font-size: 1.2rem; font-weight: bold; }
+        .percent { color: #ffeb3b; font-size: 1.5rem; }
+
+        /* レアリティ切り替えタブ */
+        .tabs { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 20px; justify-content: center; }
+        .tab-btn { padding: 10px 15px; border: none; background: #ddd; cursor: pointer; border-radius: 5px; font-weight: bold; flex: 1; min-width: 80px; }
+        .tab-btn.active { background: var(--primary); color: white; }
+
+        /* キャラクターグリッド */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(75px, 1fr)); gap: 8px; display: none; }
+        .grid.active { display: grid; }
+
+        /* キャラカード */
+        /* キャラカードのサイズを完全に固定する */
+                .char {
+                    width: 80px; /* 横幅を固定 */
+                    height: 100px; /* 高さも固定 */
+                    border: 1px solid #eee;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    transition: opacity 0.2s; /* フィルターのアニメを外すと軽くなる */
+                    filter: grayscale(100%);
+                    opacity: 0.3;
+                    background: #fff;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: space-between;
+                    overflow: hidden;
+                }
+        .char.owned { filter: grayscale(0%); opacity: 1; border: 2px solid var(--primary); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        /* 画像のサイズを固定してピクピクさせない */
+          .char img {
+              width: 60px;
+              height: 60px;
+              object-fit: contain;
+              margin-top: 5px;
+              flex-shrink: 0; /* 画像が潰れないようにする */
+          }
+
+          .char.owned { filter: grayscale(0%); opacity: 1; border: 2px solid var(--primary); }
+        .char-name { font-size: 9px; text-align: center; display: block; background: #f9f9f9; padding: 2px 0; overflow: hidden; white-space: nowrap; }
+
+        .reset-area { text-align: center; margin-top: 30px; }
+        .btn-red { background: #ff5252; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+      <h1 class="main-title">にゃんこ大戦争<br>キャラチェッカー</h1>
+
+      <div class="stats">
+          合計所持数: <span id="ownedCount">0</span> / <span id="totalCount">0</span>
+          <br><span id="percent" class="percent">0%</span>
+      </div>
+  </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="showTab('legend')">伝説</button>
+        <button class="tab-btn" onclick="showTab('uber')">超激</button>
+        <button class="tab-btn" onclick="showTab('super')">激レア</button>
+        <button class="tab-btn" onclick="showTab('rare')">レア</button>
+        <button class="tab-btn" onclick="showTab('EX')">EX</button>
+        <button class="tab-btn" onclick="showTab('basic')">基本</button>
+    </div>
+
+    <div id="legend" class="grid active"></div>
+    <div id="uber" class="grid"></div>
+    <div id="super" class="grid"></div>
+    <div id="rare" class="grid"></div>
+    <div id="EX" class="grid"></div>
+    <div id="basic" class="grid"></div>
+
+    <div class="reset-area">
+        <button class="btn-red" onclick="resetAll()">データをリセット</button>
+    </div>
+</div>
+
+<script>
+// 所持データの読み込み（ローカルストレージ）
+let ownedList = JSON.parse(localStorage.getItem('nyanko_all_data')) || [];
+
+// 1. JSONファイルを読み込む関数
+async function loadDatabase() {
+    try {
+        const response = await fetch('characters.json');
+        if (!response.ok) throw new Error("ファイルが見つかりません");
+        const data = await response.json();
+        return data;
+    } catch (e) {
+        console.error("データの読み込みに失敗しました:", e);
+        alert("characters.jsonが読み込めませんでした。同じフォルダにあるか確認してください。");
+        return null;
+    }
+}
+
+// 2. 画面を初期化する関数
+async function init() {
+    const database = await loadDatabase();
+    if (!database) return;
+
+    let total = 0;
+    // 各レアリティ（伝説、超激など）ごとにループ
+    for (const rarity in database) {
+        const grid = document.getElementById(rarity);
+        if (!grid) continue;
+
+        database[rarity].forEach(char => {
+            total++;
+            const div = document.createElement('div');
+            div.id = `c-${char.id}`;
+            div.className = `char ${ownedList.includes(char.id) ? 'owned' : ''}`;
+
+            // 画像URLが空なら「No Img」を表示
+            const displayImg = char.img && char.img !== ""
+                               ? char.img
+                               : 'https://via.placeholder.com/60?text=No+Img';
+
+            div.innerHTML = `
+                <img src="${displayImg}" loading="lazy" alt="${char.name}">
+                <span class="char-name">${char.name}</span>
+            `;
+
+            div.onclick = () => toggle(char.id);
+            grid.appendChild(div);
+        });
+    }
+
+    // 合計数を更新
+    document.getElementById('totalCount').innerText = total;
+    updateStats();
+}
+
+// 3. タブを切り替える関数
+function showTab(rarity) {
+    document.querySelectorAll('.grid').forEach(g => g.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+
+    const targetGrid = document.getElementById(rarity);
+    if(targetGrid) targetGrid.classList.add('active');
+    event.currentTarget.classList.add('active');
+}
+
+// 4. キャラをクリックした時の所持・未所持切り替え
+function toggle(id) {
+    const el = document.getElementById(`c-${id}`);
+    if (ownedList.includes(id)) {
+        ownedList = ownedList.filter(i => i !== id);
+        if(el) el.classList.remove('owned');
+    } else {
+        ownedList.push(id);
+        if(el) el.classList.add('owned');
+    }
+    localStorage.setItem('nyanko_all_data', JSON.stringify(ownedList));
+    updateStats();
+}
+
+// 5. 所持率の計算
+function updateStats() {
+    const count = ownedList.length;
+    const totalCountEl = document.getElementById('totalCount');
+    const total = parseInt(totalCountEl.innerText) || 0;
+    const per = total > 0 ? Math.round((count / total) * 100) : 0;
+
+    document.getElementById('ownedCount').innerText = count;
+    document.getElementById('percent').innerText = per + "%";
+}
+
+// 6. リセットボタン
+function resetAll() {
+    if(confirm("全てのチェックを消去しますか？")) {
+        localStorage.removeItem('nyanko_all_data');
+        location.reload();
+    }
+}
+
+// 実行！
+init();
+
+</script>
+
+</body>
+</html>

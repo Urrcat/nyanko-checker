@@ -1,0 +1,33 @@
+{
+  "basic": [
+    { "id": 6001, "name": "ネコ", "img": "https://i.imgur.com/rNn9lPZ.png" },
+    { "id": 6002, "name": "タンクネコ", "img": "https://i.imgur.com/Z8v6bY3.png" },
+    { "id": 6003, "name": "バトルネコ", "img": "https://i.imgur.com/XpA2t0v.png" },
+    { "id": 6004, "name": "キモネコ", "img": "https://i.imgur.com/vHq7N9m.png" },
+    { "id": 6005, "name": "ウシネコ", "img": "https://i.imgur.com/lZ6zX0t.png" },
+    { "id": 6006, "name": "ネコノトリ", "img": "https://i.imgur.com/J8YV1OQ.png" },
+    { "id": 6007, "name": "ネコフィッシュ", "img": "https://i.imgur.com/N7fRkXm.png" },
+    { "id": 6008, "name": "ネコトカゲ", "img": "https://i.imgur.com/uC7uUfO.png" },
+    { "id": 6009, "name": "巨神ネコ", "img": "https://i.imgur.com/G3E6A1H.png" }
+  ],
+  "legend": [
+    { "id": 701, "name": "伝説のネコルガ", "img": "https://battlecats-db.com/img/u/701/u701_1.png" },
+    { "id": 702, "name": "ジャンヌダルク", "img": "https://battlecats-db.com/img/u/702/u702_1.png" },
+    { "id": 703, "name": "武蔵坊弁慶", "img": "https://battlecats-db.com/img/u/703/u703_1.png" },
+    { "id": 704, "name": "バベル", "img": "https://battlecats-db.com/img/u/704/u704_1.png" },
+    { "id": 705, "name": "結晶のドラグーン", "img": "https://battlecats-db.com/img/u/705/u705_1.png" },
+    { "id": 706, "name": "宮本武蔵", "img": "https://battlecats-db.com/img/u/706/u706_1.png" },
+    { "id": 707, "name": "天草四郎", "img": "https://battlecats-db.com/img/u/707/u707_1.png" },
+    { "id": 708, "name": "牛若丸", "img": "https://battlecats-db.com/img/u/708/u708_1.png" },
+    { "id": 709, "name": "ルミナ", "img": "https://battlecats-db.com/img/u/709/u709_1.png" },
+    { "id": 710, "name": "ガイア", "img": "https://battlecats-db.com/img/u/710/u710_1.png" },
+    { "id": 711, "name": "京坂七穂", "img": "https://battlecats-db.com/img/u/711/u711_1.png" },
+    { "id": 712, "name": "モモコ", "img": "https://battlecats-db.com/img/u/712/u712_1.png" },
+    { "id": 713, "name": "レジェルガ", "img": "https://battlecats-db.com/img/u/713/u713_1.png" },
+    { "id": 714, "name": "イザナギ", "img": "https://battlecats-db.com/img/u/714/u714_1.png" }
+  ],
+  "uber": [],
+  "super": [],
+  "rare": [],
+  "EX": []
+}
