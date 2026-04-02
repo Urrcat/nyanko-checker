@@ -1,6 +1,6 @@
 {
   "basic": [
-    { "id": 6001, "name": "ネコ", "img": "https://i.imgur.com/rNn9lPZ.png" },
+    { "id": 6001, "name": "ネコ", "img": "img/0001.png" },
     { "id": 6002, "name": "タンクネコ", "img": "https://i.imgur.com/Z8v6bY3.png" },
     { "id": 6003, "name": "バトルネコ", "img": "https://i.imgur.com/XpA2t0v.png" },
     { "id": 6004, "name": "キモネコ", "img": "https://i.imgur.com/vHq7N9m.png" },

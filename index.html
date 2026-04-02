@@ -8,23 +8,18 @@
 
     /* --- タイトルのポップなデザイン --- */
 .main-title {
-    margin: 0 0 15px 0;
-    padding: 0;
-    font-size: 28px; /* 文字を大きく */
-    color: #ff9800; /* オレンジ色 */
-    font-family: "Arial Rounded MT Bold", "Helvetica Rounded", sans-serif; /* 丸文字系 */
-    letter-spacing: 2px; /* 文字の間隔を少し広げる */
-
-    /* 白いフチ取りと影でポップにする */
-    text-shadow:
-        3px 3px 0 #fff,
-        -1px -1px 0 #fff,
-         1px -1px 0 #fff,
-        -1px  1px 0 #fff,
-         1px  1px 0 #fff,
-         4px 4px 10px rgba(0,0,0,0.3); /* 外側の柔らかい影 */
-
-    line-height: 1.2;
+    margin: 10px 0;
+    font-size: 26px;
+    color: #ffffff; /* 文字自体を白にしてスッキリさせる */
+    font-family: "Arial Rounded MT Bold", sans-serif;
+    letter-spacing: 1px;
+    text-shadow: 
+        2px 2px 0 #8d6e63, /* 背景より少し濃い茶色で影をつける */
+        -1px -1px 0 #8d6e63,
+        1px -1px 0 #8d6e63,
+        -1px 1px 0 #8d6e63,
+        4px 4px 8px rgba(0,0,0,0.4);
+    line-height: 1.3;
 }
 
 /* スマホで見るときは少し文字を小さく調整 */
@@ -109,21 +104,24 @@
     .tabs {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px;
+        gap: 10px;
         margin-bottom: 25px;
         justify-content: center;
+        padding: 0 5px;
     }
 
     .tab-btn {
-        padding: 12px 20px;
-        border: 2px solid #e0e0e0;
-        background: #fff;
+        padding: 10px 15px;
+        border: 2px solid #d7ccc8; /* 未選択時は薄い茶色の枠 */
+        background: #efebe9;    /* 未選択時は少しグレーがかった白 */
         cursor: pointer;
-        border-radius: 30px; /* 完全に丸いボタン */
+        border-radius: 12px;
         font-weight: bold;
-        color: #795548;
-        transition: all 0.2s;
-        box-shadow: 0 2px 0 #e0e0e0; /* 少し立体感 */
+        color: #8d6e63;         /* 未選択時の文字色 */
+        transition: all 0.3s;
+        font-size: 14px;
+        flex: 1 1 80px;         /* スマホで横に並びやすくする */
+        box-shadow: 0 4px 0 #d7ccc8; /* 立体的なボタン */
     }
 
     .tab-btn:hover {
@@ -132,13 +130,12 @@
     }
 
     .tab-btn.active {
-        background: var(--primary-color);
-        color: white;
-        border-color: #f57c00;
-        box-shadow: 0 2px 0 #e65100;
-        transform: translateY(1px); /* 押した感じ */
+        background: #ff9800 !important; /* 目立つオレンジ色に固定 */
+        color: #ffffff !important;      /* 文字は白で見やすく */
+        border-color: #e65100;
+        box-shadow: 0 2px 0 #e65100;    /* 押し込んだような見た目 */
+        transform: translateY(2px);     /* 実際に少し沈ませる */
     }
-
     /* --- キャラクターグリッド --- */
     .grid {
         display: grid;
